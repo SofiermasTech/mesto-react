@@ -24,6 +24,12 @@ function App() {
       setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
    };
 
+   const closeAllPopups = () => {
+      setIsEditAvatarPopupOpen(false);
+      setIsEditProfilePopupOpen(false);
+      setIsAddPlacePopupOpen(false);
+    }
+
    return (
       <div className="page">
 
@@ -36,7 +42,7 @@ function App() {
          <Footer />
 
 
-         <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen}>
+         <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             
                <input type="url" name="avatar" id="avatar-input" placeholder="Ссылка на картинку"
                   className="popup__input" minLength="2" maxLength="200" required />
@@ -45,7 +51,7 @@ function App() {
           
          </PopupWithForm>
 
-         <PopupWithForm name="edit" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
+         <PopupWithForm name="edit" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
             
                <input type="text" name="author" id="author-input" placeholder="Имя"
                   minLength="2" maxLength="40" className="popup__input  popup__input_type_name" required />
@@ -58,7 +64,7 @@ function App() {
          </PopupWithForm>
 
         
-         <PopupWithForm name="new-card" title="Новое место" isOpen={isAddPlacePopupOpen}>
+         <PopupWithForm name="new-card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
            
                <input type="text" name="namePlace" id="place-input" placeholder="Название" minLength="2"
                   maxLength="30" className="popup__input popup__input_type_place" required />
