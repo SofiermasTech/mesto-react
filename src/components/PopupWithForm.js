@@ -9,7 +9,7 @@ const PopupWithForm = (props) => {
             <form className="popup__form popup-avatar__form" name={`${props.name}`} noValidate>
 
                {props.children}
-               
+
             </form>
          </div>
       </section>

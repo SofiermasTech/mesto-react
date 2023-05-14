@@ -1,9 +1,13 @@
 import React from "react";
 
-const Card = ({ card }) => {
+const Card = ({ card, onCardClick }) => {
+   const handleClick = () => {
+      onCardClick(card);
+   };
+
    return (
       <li className="card" key={card._id}>
-         <img src={card.link} alt={card.name} className="card__image" />
+         <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
          <button type="button" className="card__button-deleted"></button>
          <div className="card__container">
             <h2 className="card__description">{card.name}</h2>
@@ -13,7 +17,7 @@ const Card = ({ card }) => {
             </div>
          </div>
       </li>
-    );
+   );
 }
 
 export default Card;

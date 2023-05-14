@@ -10,7 +10,7 @@
 
 
 **Использованы для верстки**
-* HTML, CSS (в основновном Flex, @media, псевдоклассы), JS.
+* HTML, CSS (в основновном Flex, @media, псевдоклассы), JS, React JS.
 * Реализована методология BEM Nested, ООП, npm, webpack, Api
 
 ### Ссылка на GitHub Pages
