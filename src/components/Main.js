@@ -1,14 +1,14 @@
-import React from "react";
+import { useEffect, useState } from 'react';
 import api from "../utils/api";
 import Card from "./Card";
 
 const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
-   const [userName, setUserName] = React.useState('');
-   const [userDescription, setUserDescription] = React.useState('');
-   const [userAvatar, setUserAvatar] = React.useState('');
-   const [cards, setCards] = React.useState([]);
+   const [userName, setUserName] = useState('');
+   const [userDescription, setUserDescription] = useState('');
+   const [userAvatar, setUserAvatar] = useState('');
+   const [cards, setCards] = useState([]);
 
-   React.useEffect(() => {
+   useEffect(() => {
       api
          .getUserInfo()
          .then((data) => {
@@ -19,9 +19,9 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
          .catch((err) => {
             console.log(`Ошибка: ${err}`);
          });
-   });
+   }, []);
 
-   React.useEffect(() => {
+   useEffect(() => {
       api
          .getInitialCards()
          .then((data) => {
@@ -30,8 +30,7 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
          .catch((err) => {
             console.log(`Ошибка: ${err}`);
          });
-   });
-
+   }, []);
 
    return (
       <main className="content">
@@ -51,13 +50,10 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
             <button type="button" className="profile__button-add" onClick={onAddPlace}></button>
          </section>
 
-
          <section className="cards">
-
             {cards.map((card) => {
                return <Card key={card._id} card={card} onCardClick={onCardClick} />
             })}
-
          </section>
       </main>
    );
