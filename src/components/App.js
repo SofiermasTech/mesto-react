@@ -6,6 +6,7 @@ import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 
 function App() {
 
@@ -48,6 +49,17 @@ function App() {
       setSelectedCard(card);
    };
 
+   const handleUpdateUser = (newUserInfo) => {
+      api.setUserInfo(newUserInfo)
+      .then((data) =>{
+        setCurrentUser(data)
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+    };
+
    const closeAllPopups = () => {
       setIsEditAvatarPopupOpen(false);
       setIsEditProfilePopupOpen(false);
@@ -73,14 +85,7 @@ function App() {
                <span id="avatar-error" className="popup__input-error avatar-input-error"></span>
             </PopupWithForm>
 
-            <PopupWithForm name="edit" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText='Сохранить'>
-               <input type="text" name="author" id="author-input" placeholder="Имя"
-                  minLength="2" maxLength="40" className="popup__input  popup__input_type_name" required />
-               <span id="name-error" className="popup__input-error author-input-error"></span>
-               <input type="text" name="job" id="job-input" placeholder="Вид деятельности" minLength="2"
-                  maxLength="200" className="popup__input popup__input_type_job" required />
-               <span id="job-error" className="popup__input-error job-input-error"></span>
-            </PopupWithForm>
+            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
             <PopupWithForm name="new-card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText='Создать'>
                <input type="text" name="namePlace" id="place-input" placeholder="Название" minLength="2"

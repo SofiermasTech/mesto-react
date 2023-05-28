@@ -43,20 +43,12 @@ class Api {
          .then(res => this._parseResponse(res));
    }
 
-   //лайк
-   setLike(cardId) {
+   //лайк-deleted like
+   changeLikeCardStatus(cardId, isLiked) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
          headers: this._headers,
-         method: 'PUT'
-      })
-         .then(res => this._parseResponse(res));
-   }
-
-   //удаляем лайк
-   deleteLike(cardId) {
-      return fetch(`${this._url}/cards/${cardId}/likes`, {
-         method: 'DELETE',
-         headers: this._headers
+         method: `${!isLiked ? 'DELETE' : 'PUT'}`,
+         
       })
          .then(res => this._parseResponse(res));
    }
@@ -74,13 +66,13 @@ class Api {
    }
 
    //изменение информации через попап
-   editUserInfo(data) {
+   setUserInfo(data) {
       return fetch(`${this._url}/users/me`, {
          headers: this._headers,
          method: 'PATCH',
          body: JSON.stringify({
             name: data.author,
-            about: data.jobAuthor
+            about: data.job
          })
       })
          .then(res => this._parseResponse(res));
