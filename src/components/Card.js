@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
    const currentUser = useContext(CurrentUserContext);
-  
+
    const isOwn = card.owner._id === currentUser._id;
    const isLiked = card.likes.some(i => i._id === currentUser._id);
    const cardLikeButtonClassName = (
@@ -12,15 +12,15 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
 
    const handleLikeClick = () => {
       onCardLike(card);
-    };
+   };
 
-    const handleClick = () => {
+   const handleClick = () => {
       onCardClick(card);
    };
 
    const handleDeleteClick = () => {
       onCardDelete(card._id);
-    };
+   };
 
    return (
       <li className="card" key={card._id}>

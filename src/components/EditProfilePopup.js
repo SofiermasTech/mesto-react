@@ -7,12 +7,12 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
    const [name, setName] = useState("");
    const [description, setDescription] = useState("");
 
-   const handleNameChange = (event) => {
-      setName(event.target.value);
+   const handleNameChange = (evt) => {
+      setName(evt.target.value);
    };
 
-   const handleDescriptionChange = (event) => {
-      setDescription(event.target.value);
+   const handleDescriptionChange = (evt) => {
+      setDescription(evt.target.value);
    };
 
    useEffect(() => {
@@ -20,8 +20,8 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       setDescription(currentUser.about);
    }, [currentUser]);
 
-   const handleSubmit = (event) => {
-      event.preventDefault();
+   const handleSubmit = (evt) => {
+      evt.preventDefault();
 
       onUpdateUser({
          author: name,

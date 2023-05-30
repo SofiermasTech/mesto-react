@@ -25,11 +25,13 @@ class Api {
    }
 
    //добавление
-   addNewCard({ name, link }) {
+   addNewCard(data) {
       return fetch(`${this._url}/cards`, {
          method: 'POST',
          headers: this._headers,
-         body: JSON.stringify({ name, link })
+         body: JSON.stringify({ 
+            name: data.name, 
+            link: data.link })
       })
          .then(res => this._parseResponse(res));
    }
@@ -79,7 +81,7 @@ class Api {
    }
 
    //редактирование аватара
-   editAvatar(data) {
+   setUserAvatar(data) {
       return fetch(`${this._url}/users/me/avatar`, {
          headers: this._headers,
          method: 'PATCH',
