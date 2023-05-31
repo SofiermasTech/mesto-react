@@ -3,7 +3,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-//import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api.js";
 import EditProfilePopup from "./EditProfilePopup.js";
@@ -16,41 +15,26 @@ function App() {
    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
    const [selectedCard, setSelectedCard] = useState({});
-   const [currentUser, setCurrentUser] = useState({});
+   const [currentUser, setCurrentUser] = useState({
+      name: "",
+      about: "",
+      avatar: "",
+      _id: "",
+      cohort: "",
+   });
    const [cards, setCards] = useState([]);
 
    useEffect(() => {
-      api
-         .getInitialCards()
-         .then((data) => {
-            setCards(data);
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+         .then(([userData, initialCards]) => {
+            setCurrentUser(userData);
+            setCards(initialCards);
          })
          .catch((err) => {
             console.log(`Ошибка: ${err}`);
          });
    }, []);
 
-   useEffect(() => {
-      api
-         .getUserInfo()
-         .then((data) => {
-            setCurrentUser(data);
-         })
-         .catch((err) => {
-            console.log(`Ошибка: ${err}`);
-         });
-   }, []);
-
-   useEffect(() => {
-      api
-         .getInitialCards()
-         .then((data) => {
-            setCards(data);
-         })
-         .catch((err) => {
-            console.log(`Ошибка: ${err}`);
-         });
-   }, []);
 
    const handleEditAvatarClick = () => {
       setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
